@@ -16,12 +16,18 @@ module Enumerable
         end
         result
     end
-
+    
+    def my_all?
+        result = true
+        self.my_each { |i| break result = false unless yield(i)}
+        result
+        
+    end
 
 
 
 end
-my_test = [1,3,"stuff",0]
+my_test = [1,3,-3,600,0,"Str"]
 
 puts "my_each:"
 my_test.my_each { |i| print i.to_s + " "}
@@ -34,3 +40,8 @@ puts
 puts "my_select:"
 print my_test.my_select { |item| item.is_a? Integer }
 puts
+
+puts "my_all?:"
+print my_test.my_all? { |item| item.is_a? String}
+puts
+
