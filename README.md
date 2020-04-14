@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-[Enumerables](https://repl.it/github/Mindo-Joseph/enumerables_ruby)
+([![Run on Repl.it](https://repl.it/badge/github/Mindo-Joseph/enumerables_ruby)](https://repl.it/github/Mindo-Joseph/enumerables_ruby))
 
 
 
