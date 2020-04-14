@@ -55,9 +55,23 @@ module Enumerable
         result
     end
 
+    def my_inject initial=nil
+        initial.nil? ? result = self[0] : result = initial
+        initial.nil? ? index = 1 : index = 0
+        self[index...self.length].my_each do |item|
+            result = yield(result, item)
+        end
+        result
+    end
 
 
 
+
+
+
+end
+def multiply_els(array)
+    array.my_inject(1) { |product, i| product * i }
 end
 my_test = [1,3,-3,600,0,"Str",19.0]
 
@@ -94,3 +108,9 @@ puts
 puts "my_map:"
 print [1,2,3,4,5].my_map { |num| num * 2 }
 puts 
+
+puts "my_inject:"
+puts [1,2,3,4,5].my_inject { |sum, num| sum * num }
+
+puts "multiply_els"
+puts multiply_els([2,4,5])
