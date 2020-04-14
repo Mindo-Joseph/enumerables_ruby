@@ -1,108 +1,14 @@
 module Enumerable
   def my_each
-    length.times { |i| yield(self[i]) }
-  end
-
-  def my_each_with_index
-    (0..length - 1).each do |index|
-      yield(self[index], index)
+    position = 0
+    return to_enum unless block_given?
+    while position <= length do
+      yield self[position]
+      position += 1
     end
+    self
   end
 
-  def my_select
-    result = []
-    my_each do |item|
-      result << item if yield(item)
-    end
-    result
-  end
-
-  def my_all?
-    result = true
-    my_each { |i| break result = false unless yield(i) }
-    result
-  end
-
-  def my_any?
-    result = false
-    my_each { |i| break result = true if yield(i) }
-    result
-  end
-
-  def my_none?
-    result = true
-    my_each { |i| break result = false if yield(i) }
-    result
-  end
-
-  def my_count(argument)
-    counter = 0
-    my_each { |i| counter += 1 if argument == i }
-    counter
-  end
-
-  def my_map(proc = nil)
-    result = []
-    my_each do |item|
-      result << if block_given?
-                  yield(item)
-                else
-                  proc.call(item)
-                end
-    end
-    result
-  end
-
-  def my_inject(initial = nil)
-    result = initial.nil? ? self[0] : initial
-    index = initial.nil? ? 1 : 0
-    self[index...length].my_each do |item|
-      result = yield(result, item)
-    end
-    result
-  end
 end
-def multiply_els(array)
-  array.my_inject(1) { |product, i| product * i }
-end
-
-# my_test = [1, 3, -3, 600, 0, 'Str', 19.0]
-# puts 'my_each:'
-# my_test.my_each { |i| print i.to_s + ' ' }
-# puts
-#
-# puts 'my_each_with_index:'
-# my_test.my_each_with_index { |item, index| print [item, index] }
-# puts
-#
-# puts 'my_select:'
-# print my_test.my_select { |item| item.is_a? Integer }
-# puts
-#
-# puts 'my_all?:'
-# print my_test.my_all? { |item| item.is_a? String }
-# puts
-#
-# puts 'my_any?:'
-# print my_test.my_any? { |item| item.is_a? String }
-# puts
-#
-# puts 'my_none?:'
-# array = [1, 3, 4, 0, -1]
-# print array.my_none? { |item| item > 1000 }
-# puts
-#
-# puts 'my_count:'
-# counter_array = [1, 1, 3, 4, 5]
-# print counter_array.my_count(1)
-# puts
-#
-# puts 'my_map:'
-# print [1, 2, 3, 4, 5].my_map { |num| num * 2 }
-# puts
-#
-# puts 'my_inject:'
-# puts [1, 2, 3, 4, 5].my_inject { |sum, num| sum * num }
-#
-# puts 'multiply_els'
-# puts multiply_els([2, 4, 5])
+[1,2,3,5].my_each { |i| print i.to_s + " "}
+puts 
