@@ -105,6 +105,7 @@ counter_array = [1,1,3,4,5]
 print counter_array.my_count(1)
 puts
 
+
 puts "my_map:"
 print [1,2,3,4,5].my_map { |num| num * 2 }
 puts 
