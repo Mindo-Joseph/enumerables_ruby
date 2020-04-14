@@ -9,6 +9,14 @@ module Enumerable
        end
     end
 
+    def my_select
+        result = []
+        my_each do |item|
+            result << item if yield(item)
+        end
+        result
+    end
+
 
 
 
@@ -22,3 +30,6 @@ puts
 puts "my_each_with_index:"
 my_test.my_each_with_index { |item,index| print [item,index]}
 puts
+
+puts "my_select:"
+my_test.my_select { |i| i.is_a? Integer}
