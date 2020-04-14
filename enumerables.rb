@@ -24,10 +24,16 @@ module Enumerable
         
     end
 
+    def my_any?
+        result = false
+        self.my_each { |i| break result = true if yield(i)}
+        result
+    end
+
 
 
 end
-my_test = [1,3,-3,600,0,"Str"]
+my_test = [1,3,-3,600,0,"Str",19.0]
 
 puts "my_each:"
 my_test.my_each { |i| print i.to_s + " "}
@@ -43,5 +49,9 @@ puts
 
 puts "my_all?:"
 print my_test.my_all? { |item| item.is_a? String}
+puts
+
+puts "my_any?:"
+print my_test.my_any? { |item| item.is_a? String}
 puts
 
