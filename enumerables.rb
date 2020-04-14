@@ -2,7 +2,8 @@ module Enumerable
   def my_each
     position = 0
     return to_enum unless block_given?
-    while position <= length do
+
+    while position <= length
       yield self[position]
       position += 1
     end
@@ -12,12 +13,14 @@ module Enumerable
   def my_each_with_index
     position = 0
     return to_enum unless block_given?
-    while position < length do
-      yield self[position],position
-      position +=1
+
+    while position < length
+      yield self[position], position
+      position += 1
     end
     self
   end
+
   # Define my_select
   def my_select
     result = []
@@ -29,6 +32,20 @@ module Enumerable
     result
   end
 
+  def my_all?(argument=nil)
+    result = true
+    my_each do |item|
+      result = (block_given? && yield(item)) || argument === item
+      result = true?(item) if !block_given? && !argument
+      return false unless result
+    end
+    result
+  end
 end
-print [1,2,3,5].my_select.class == [1,2,3,4,5].select.class
-puts 
+def true?(val = nil)
+  return false if val.nil? || !val
+
+  true
+end
+print [1, true, 'hi', []].my_all?
+puts
