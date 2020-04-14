@@ -30,6 +30,12 @@ module Enumerable
         result
     end
 
+    def my_none?
+        result = true
+        self.my_each { |i| break result = false if yield(i)}
+        result
+    end
+
 
 
 end
@@ -55,3 +61,7 @@ puts "my_any?:"
 print my_test.my_any? { |item| item.is_a? String}
 puts
 
+puts "my_none?:"
+array = [1,3,4,0,-1]
+print array.my_none? { |item| item > 1000}
+puts
