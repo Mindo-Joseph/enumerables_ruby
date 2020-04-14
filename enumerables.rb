@@ -1,68 +1,68 @@
 module Enumerable
-    def my_each
-        self.length.times { |i| yield(self[i])}
-    end
+  def my_each
+    self.length.times { |i| yield(self[i])}
+  end
 
-    def my_each_with_index
-       for index in (0..self.length-1)
-            yield(self[index],index)
-       end
-    end
+  def my_each_with_index
+     for index in (0..self.length-1)
+      yield(self[index],index)
+     end
+  end
 
-    def my_select
-        result = []
-        my_each do |item|
-            result << item if yield(item)
-        end
-        result
+  def my_select
+    result = []
+    my_each do |item|
+      result << item if yield(item)
     end
+    result
+  end
+  
+  def my_all?
+    result = true
+    self.my_each { |i| break result = false unless yield(i)}
+    result
     
-    def my_all?
-        result = true
-        self.my_each { |i| break result = false unless yield(i)}
-        result
-        
-    end
+  end
 
-    def my_any?
-        result = false
-        self.my_each { |i| break result = true if yield(i)}
-        result
-    end
+  def my_any?
+    result = false
+    self.my_each { |i| break result = true if yield(i)}
+    result
+  end
 
-    def my_none?
-        result = true
-        self.my_each { |i| break result = false if yield(i)}
-        result
-    end
+  def my_none?
+    result = true
+    self.my_each { |i| break result = false if yield(i)}
+    result
+  end
 
-    def my_count(argument)
-        counter = 0
-        self.my_each { |i| counter += 1 if argument == i}
-        counter
+  def my_count(argument)
+    counter = 0
+    self.my_each { |i| counter += 1 if argument == i}
+    counter
 
-    end
+  end
 
-    def my_map proc=nil
-        result = []
-        self.my_each do |item|
-            unless block_given?
-                result << proc.call(item)
-            else
-                result << yield(item)
-            end
-        end
-        result
+  def my_map (proc=nil)
+    result = []
+    self.my_each do |item|
+      unless block_given?
+        result << proc.call(item)
+      else
+        result << yield(item)
+      end
     end
+    result
+  end
 
-    def my_inject initial=nil
-        initial.nil? ? result = self[0] : result = initial
-        initial.nil? ? index = 1 : index = 0
-        self[index...self.length].my_each do |item|
-            result = yield(result, item)
-        end
-        result
+  def my_inject (initial=nil)
+    initial.nil? ? result = self[0] : result = initial
+    initial.nil? ? index = 1 : index = 0
+    self[index...self.length].my_each do |item|
+      result = yield(result, item)
     end
+    result
+  end
 
 
 
@@ -71,7 +71,7 @@ module Enumerable
 
 end
 def multiply_els(array)
-    array.my_inject(1) { |product, i| product * i }
+  array.my_inject(1) { |product, i| product * i }
 end
 my_test = [1,3,-3,600,0,"Str",19.0]
 
