@@ -32,4 +32,5 @@ my_test.my_each_with_index { |item,index| print [item,index]}
 puts
 
 puts "my_select:"
-my_test.my_select { |i| i.is_a? Integer}
+print my_test.my_select { |item| item.is_a? Integer }
+puts
