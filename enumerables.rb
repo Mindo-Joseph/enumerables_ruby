@@ -36,6 +36,13 @@ module Enumerable
         result
     end
 
+    def my_count(argument)
+        counter = 0
+        self.my_each { |i| counter += 1 if argument == i}
+        counter
+
+    end
+
 
 
 end
@@ -64,4 +71,9 @@ puts
 puts "my_none?:"
 array = [1,3,4,0,-1]
 print array.my_none? { |item| item > 1000}
+puts
+
+puts "my_count:"
+counter_array = [1,1,3,4,5]
+print counter_array.my_count(1)
 puts
