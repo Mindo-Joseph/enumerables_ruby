@@ -43,6 +43,19 @@ module Enumerable
 
     end
 
+    def my_map proc=nil
+        result = []
+        self.my_each do |item|
+            unless block_given?
+                result << proc.call(item)
+            else
+                result << yield(item)
+            end
+        end
+        result
+    end
+
+
 
 
 end
@@ -77,3 +90,7 @@ puts "my_count:"
 counter_array = [1,1,3,4,5]
 print counter_array.my_count(1)
 puts
+
+puts "my_map:"
+print [1,2,3,4,5].my_map { |num| num * 2 }
+puts 
