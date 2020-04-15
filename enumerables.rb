@@ -57,7 +57,21 @@ module Enumerable
     end
     result
   end
+
+  def my_none?(arg = nil)
+    array = *self
+    result = true
+    if block_given?
+      array.my_each { |x| result = false if yield(x) }
+    elsif arg.nil?
+      array.my_each { |x| result = false if x }
+    else
+      array.my_each { |x| result = false if arg === x }
+    end
+    result
+
+  end
 end
 
-print [1, true, 'hi', []].any?
+print ['sure', 'trust'].my_none?(5) == ['sure', 'trust'].none?(5)
 puts
