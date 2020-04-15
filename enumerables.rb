@@ -83,7 +83,18 @@ module Enumerable
     count
 
   end
+  def my_map(proc=nil)
+    array = []
+    if proc 
+      my_each { |item| array << (proc.call(item))}
+    elsif block_given?
+      my_each { |item| array << yield(item)}
+    else
+      return my_each
+    end
+    array
+  end
 end
 
-print %w[sure trust].my_none?(5) == %w[sure trust].none?(5)
+print [1,2,3,4,5].my_map.class == [1,2,3,4,5].map.class
 puts
