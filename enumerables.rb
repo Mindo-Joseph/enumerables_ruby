@@ -14,7 +14,7 @@ module Enumerable
     position = 0
     return to_enum unless block_given?
 
-    while position < length
+    while position <= length
       yield self[position], position
       position += 1
     end
@@ -69,6 +69,19 @@ module Enumerable
       array.my_each { |x| result = false if arg == x }
     end
     result
+  end
+
+  def my_count(arg=nil)
+    count = 0
+    if block_given?
+      my_each { |i| count+=1 if yield(i)}
+    elsif !arg.nil?
+      my_each { |i| count+=1 if arg==i}
+    else 
+      return size
+    end
+    count
+
   end
 end
 
