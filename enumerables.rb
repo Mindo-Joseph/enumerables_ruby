@@ -32,20 +32,32 @@ module Enumerable
     result
   end
 
-  def my_all?(argument=nil)
+  def my_all?(arg = nil)
+    array = *self
     result = true
-    my_each do |item|
-      result = (block_given? && yield(item)) || argument === item
-      result = true?(item) if !block_given? && !argument
-      return false unless result
+    if block_given?
+      array.my_each { |x| result = false unless yield(x) }
+    elsif arg.nil?
+      array.my_each { |x| result = false unless x }
+    else
+      array.my_each { |x| result = false unless arg === x }
+    end
+    result
+  end
+
+  def my_any?(arg = nil)
+    array = *self
+    result = false
+    if block_given?
+      array.my_each { |x| result = true if yield(x) }
+    elsif arg.nil?
+      array.my_each { |x| result = true if x }
+    else
+      array.my_each { |x| result = true if arg === x }
     end
     result
   end
 end
-def true?(val = nil)
-  return false if val.nil? || !val
 
-  true
-end
-print [1, true, 'hi', []].my_all?
+print [1, true, 'hi', []].any?
 puts
