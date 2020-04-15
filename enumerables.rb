@@ -71,30 +71,44 @@ module Enumerable
     result
   end
 
-  def my_count(arg=nil)
+  def my_count(arg = nil)
     count = 0
     if block_given?
-      my_each { |i| count+=1 if yield(i)}
+      my_each { |i| count += 1 if yield(i) }
     elsif !arg.nil?
-      my_each { |i| count+=1 if arg==i}
-    else 
+      my_each { |i| count += 1 if arg == i }
+    else
       return size
     end
     count
-
   end
-  def my_map(proc=nil)
+
+  def my_map(proc = nil)
     array = []
-    if proc 
-      my_each { |item| array << (proc.call(item))}
+    if proc
+      my_each { |item| array << proc.call(item) }
     elsif block_given?
-      my_each { |item| array << yield(item)}
+      my_each { |item| array << yield(item) }
     else
       return my_each
     end
     array
   end
+  def my_inject(arg1 = nil, arg2 = nil)
+    array = self
+    result = 0 if array[0].is_a? Numeric
+    result = '' if array[0].is_a? String
+    result = arg2 if arg2.is_a? Numeric
+    if block_given?
+      array.my_each { |x| result = yield(result,x)}
+    elsif arg2.nil?
+      array.my_each { |x| result = result.send(arg1,x)}
+    else
+      array.my_each { |x| result = result.send(arg2,x)}
+    end
+    result
+  end
 end
-
-print [1,2,3,4,5].my_map.class == [1,2,3,4,5].map.class
-puts
+def multiply_els(array)
+  array.my_inject(1,:*)
+end
