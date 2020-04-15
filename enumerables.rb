@@ -94,21 +94,22 @@ module Enumerable
     end
     array
   end
+
   def my_inject(arg1 = nil, arg2 = nil)
-    array = self
+    array = *self
     result = 0 if array[0].is_a? Numeric
     result = '' if array[0].is_a? String
     result = arg2 if arg2.is_a? Numeric
     if block_given?
-      array.my_each { |x| result = yield(result,x)}
+      array.my_each { |x| result = yield(result, x) }
     elsif arg2.nil?
-      array.my_each { |x| result = result.send(arg1,x)}
+      array.my_each { |x| result = result.send(arg1, x) }
     else
-      array.my_each { |x| result = result.send(arg2,x)}
+      array.my_each { |x| result = result.send(arg2, x) }
     end
     result
   end
 end
 def multiply_els(array)
-  array.my_inject(1,:*)
+  array.my_inject(1, :*)
 end
