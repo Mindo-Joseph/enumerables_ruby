@@ -1,14 +1,15 @@
 module Enumerable
   def my_each
-    position = 0
-    return to_enum unless block_given?
+    return to_enum(__method__) unless block_given?
 
-    while position <= length
-      yield self[position]
-      position += 1
+    i = 0
+    while i < size
+      yield(to_a[i])
+      i += 1
     end
     self
   end
+
 
   def my_each_with_index
     position = 0
@@ -36,7 +37,7 @@ module Enumerable
     array = *self
     result = true
     if block_given?
-      array.my_each { |x| result = false unless yield(x) }
+      array.my_each { |x| break result = false unless yield(x) }
     elsif arg.nil?
       array.my_each { |x| result = false unless x }
     else
@@ -113,3 +114,6 @@ end
 def multiply_els(array)
   array.my_inject(1, :*)
 end
+
+
+print %w[ant bear cat].my_all? { |word| word.length >= 3 }
