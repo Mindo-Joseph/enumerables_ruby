@@ -1,6 +1,9 @@
+# rubocop:disable Metrics/ModuleLength,
 module Enumerable
+  # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
   def my_each
     return to_enum(__method__) unless block_given?
+
     i = 0
     while i < size
       yield(to_a[i])
@@ -9,12 +12,12 @@ module Enumerable
     self
   end
 
-
   def my_each_with_index
     return to_enum(__method__) unless block_given?
+
     i = 0
     while i < size
-      yield(to_a[i],i)
+      yield(to_a[i], i)
       i += 1
     end
     self
@@ -39,7 +42,7 @@ module Enumerable
     elsif arg.nil?
       array.my_each { |x| result = false unless x }
     else
-      array.my_each { |x| result = false unless arg === x }
+      array.my_each { |x| result = false unless arg === x } # rubocop:disable Style/CaseEquality
     end
     result
   end
@@ -52,7 +55,7 @@ module Enumerable
     elsif arg.nil?
       array.my_each { |x| result = true if x }
     else
-      array.my_each { |x| result = true if arg === x }
+      array.my_each { |x| result = true if arg === x } # rubocop:disable Style/CaseEquality
     end
     result
   end
@@ -65,7 +68,7 @@ module Enumerable
     elsif arg.nil?
       array.my_each { |x| result = false if x }
     else
-      array.my_each { |x| result = false if arg === x }
+      array.my_each { |x| result = false if arg === x } # rubocop:disable Style/CaseEquality
     end
     result
   end
@@ -97,17 +100,17 @@ module Enumerable
   def my_inject(arg1 = nil, arg2 = nil)
     if block_given?
       my_each do |item|
-        arg1 = arg1.nil? ? to_a[0] : yield(arg1,item)
+        arg1 = arg1.nil? ? to_a[0] : yield(arg1, item)
       end
       arg1
     elsif arg1
-      i = arg2.nil? ? 1:0
+      i = arg2.nil? ? 1 : 0
       accumulator = arg2.nil? ? to_a[0] : arg1
       operator = arg2.nil? ? arg1 : arg2
 
       while i < size
         accumulator = to_a[i].send(operator, accumulator)
-        i+=1
+        i += 1
       end
       accumulator
     else
@@ -118,7 +121,6 @@ end
 def multiply_els(array)
   array.my_inject(1, :*)
 end
-
 
 # puts %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
 # puts %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
@@ -146,7 +148,7 @@ end
 # puts ary.count               #=> 4
 # puts ary.count(2)            #=> 2
 # puts ary.count{ |x| x%2==0 } #=> 3
-# print (1..4).my_map { |i| i*i } 
+# print (1..4).my_map { |i| i*i }
 # puts     #=> [1, 4, 9, 16]
 # print (1..4).my_map { "cat"  }   #=> ["cat", "cat", "cat", "cat"]
 # puts
@@ -164,6 +166,9 @@ end
 # puts
 # find the longest word
 # longest = %w{ cat sheep bear }.inject do |memo, word|
-  #  memo.length > word.length ? memo : word
+#  memo.length > word.length ? memo : word
 # end
 # puts longest                                        #=> "sheep"
+
+# rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/ModuleLength
