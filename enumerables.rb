@@ -40,7 +40,7 @@ module Enumerable
     elsif arg.nil?
       array.my_each { |x| result = false unless x }
     else
-      array.my_each { |x| result = false unless arg === x }
+      array.my_each { |x| result = false unless arg == x }
     end
     result
   end
@@ -53,7 +53,7 @@ module Enumerable
     elsif arg.nil?
       array.my_each { |x| result = true if x }
     else
-      array.my_each { |x| result = true if arg === x }
+      array.my_each { |x| result = true if arg == x }
     end
     result
   end
@@ -66,12 +66,11 @@ module Enumerable
     elsif arg.nil?
       array.my_each { |x| result = false if x }
     else
-      array.my_each { |x| result = false if arg === x }
+      array.my_each { |x| result = false if arg == x }
     end
     result
-
   end
 end
 
-print ['sure', 'trust'].my_none?(5) == ['sure', 'trust'].none?(5)
+print %w[sure trust].my_none?(5) == %w[sure trust].none?(5)
 puts
