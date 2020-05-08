@@ -3,18 +3,19 @@ require './lib/enumerables.rb'
 RSpec.describe Enumerable do
   let(:arr) { [1, 2, 3, 4, 5] }
   describe '#my_each' do
-    it 'returns same thing as Ruby\'s .each method' do
-      expect(arr.my_each.class).to eq(arr.each.class)
+    it 'belongs to the enumerator class' do
+      expect(arr.my_each.class).to eq(Enumerator)
     end
+
   end
   describe '#my_each_with_index' do
-    it 'returns same thing as Ruby\'s .each_with_index method' do
-      expect(arr.my_each_with_index.class).to eq(arr.each_with_index.class)
+    it 'belongs to the enumerator class' do
+      expect(arr.my_each_with_index.class).to eq(Enumerator)
     end
   end
   describe '#my_select' do
-    it 'returns same thing as Ruby\'s .select method' do
-        expect(arr.my_select.class).to eq(arr.select.class)
+    it 'belongs to the enumerator class' do
+        expect(arr.my_select.class).to eq(Enumerator)
     end
   end
   describe '#my_all?' do
@@ -52,4 +53,5 @@ RSpec.describe Enumerable do
     end
 
   end
+  
 end
