@@ -92,6 +92,9 @@ RSpec.describe Enumerable do
     it 'if block not given returns my_each ' do
       allow([2, 3, 4]).to receive(:my_map).and_return(:my_each)
     end
+    it 'returns an enumerator if no object is given' do
+      expect((1..4).my_map {"cat"}).to eq(["cat", "cat", "cat", "cat"])
+    end
   end
   describe '#my_count' do
     it 'if neither block given nor arg given returns size' do
