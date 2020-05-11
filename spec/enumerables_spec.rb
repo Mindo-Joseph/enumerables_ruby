@@ -12,8 +12,15 @@ RSpec.describe Enumerable do
     end
   end
   describe '#my_each_with_index' do
+    let(:hash) {Hash.new}
     it 'belongs to the enumerator class' do
       expect(arr.my_each_with_index.class).to eq(Enumerator)
+    end
+    it 'fills a hash with array values' do
+      %w[cat dog wombat].my_each_with_index do |item, index|
+        hash[item] = index
+      end
+      expect(hash).to eql('cat' => 0, 'dog' => 1, 'wombat' => 2)
     end
   end
   describe '#my_select' do
