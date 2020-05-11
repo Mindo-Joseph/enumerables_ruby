@@ -65,7 +65,10 @@ RSpec.describe Enumerable do
       expect([].my_none?).to eq(true)
     end
     it 'returns true if all objects are falsey' do
-      expect([nil, false].none?).to eq(true)
+      expect([nil, false].my_none?).to eq(true)
+    end
+    it 'evaluates the expression when Regex is passed' do
+      expect(%w{ant bear cat}.my_none?(/d/) ).to eq(true)
     end
   end
   describe '#my_inject' do
