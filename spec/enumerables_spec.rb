@@ -6,6 +6,10 @@ RSpec.describe Enumerable do
     it 'belongs to the enumerator class' do
       expect(arr.my_each.class).to eq(Enumerator)
     end
+    it 'fills array with more array values' do
+      ["one","two","three"].my_each { |x| arr.push(x)}
+      expect(arr).to eq([1,2,3,4,5,"one","two","three"])
+    end
   end
   describe '#my_each_with_index' do
     it 'belongs to the enumerator class' do
@@ -15,6 +19,9 @@ RSpec.describe Enumerable do
   describe '#my_select' do
     it 'belongs to the enumerator class' do
       expect(arr.my_select.class).to eq(Enumerator)
+    end
+    it 'returns an array containing all elements of enum for which the given block returns a true value.' do
+      expect([1,2,3,4,5].my_select { |num|  num.even?  }).to eq([2,4])
     end
   end
   describe '#my_all?' do
@@ -33,6 +40,9 @@ RSpec.describe Enumerable do
     it 'returns true for an empty array' do
       expect([].my_all?).to eq(true)
     end
+    it 'returns false if all dont match a regex expression' do
+      expect(%w[ant bear cat].my_all?(/t/)).to eq(false)
+    end
   end
   describe '#my_any?' do
     it 'returns true if atleast 1 item meets the condition set' do
@@ -49,6 +59,9 @@ RSpec.describe Enumerable do
     end
     it 'returns true if at least one object is truthy' do
       expect([nil, true, 99].my_any?).to eq(true)
+    end
+    it 'returns false if not even 1 item in array matches regex expression' do
+      expect(%w[ant bear cat].my_any?(/d/) ).to eq(false)
     end
   end
   describe '#my_none?' do
