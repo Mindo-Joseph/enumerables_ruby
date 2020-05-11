@@ -7,12 +7,12 @@ RSpec.describe Enumerable do
       expect(arr.my_each.class).to eq(Enumerator)
     end
     it 'fills array with more array values' do
-      ["one","two","three"].my_each { |x| arr.push(x)}
-      expect(arr).to eq([1,2,3,4,5,"one","two","three"])
+      %w[one two three].my_each { |x| arr.push(x) }
+      expect(arr).to eq([1, 2, 3, 4, 5, 'one', 'two', 'three'])
     end
   end
   describe '#my_each_with_index' do
-    let(:hash) {Hash.new}
+    let(:hash) { {} }
     it 'belongs to the enumerator class' do
       expect(arr.my_each_with_index.class).to eq(Enumerator)
     end
@@ -28,7 +28,7 @@ RSpec.describe Enumerable do
       expect(arr.my_select.class).to eq(Enumerator)
     end
     it 'returns an array containing all elements of enum for which the given block returns a true value.' do
-      expect([1,2,3,4,5].my_select { |num|  num.even?  }).to eq([2,4])
+      expect([1, 2, 3, 4, 5].my_select(&:even?)).to eq([2, 4])
     end
   end
   describe '#my_all?' do
@@ -68,7 +68,7 @@ RSpec.describe Enumerable do
       expect([nil, true, 99].my_any?).to eq(true)
     end
     it 'returns false if not even 1 item in array matches regex expression' do
-      expect(%w[ant bear cat].my_any?(/d/) ).to eq(false)
+      expect(%w[ant bear cat].my_any?(/d/)).to eq(false)
     end
   end
   describe '#my_none?' do
@@ -88,7 +88,7 @@ RSpec.describe Enumerable do
       expect([nil, false].my_none?).to eq(true)
     end
     it 'evaluates the expression when Regex is passed' do
-      expect(%w{ant bear cat}.my_none?(/d/) ).to eq(true)
+      expect(%w[ant bear cat].my_none?(/d/)).to eq(true)
     end
   end
   describe '#my_inject' do
@@ -116,7 +116,7 @@ RSpec.describe Enumerable do
       allow([2, 3, 4]).to receive(:my_map).and_return(:my_each)
     end
     it 'returns an enumerator if no object is given' do
-      expect((1..4).my_map {"cat"}).to eq(["cat", "cat", "cat", "cat"])
+      expect((1..4).my_map { 'cat' }).to eq(%w[cat cat cat cat])
     end
   end
   describe '#my_count' do
