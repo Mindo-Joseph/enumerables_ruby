@@ -3,6 +3,9 @@
 ## Built With
 - Ruby
 
+### How to run tests
+- Clone this repository into your local environment
+- Then while in the current directory run 'rspec' in your terminal
 
 ## Live Demo
 
@@ -16,6 +19,12 @@
 - Github: [@MindoJoseph](https://github.com/Mindo-Joseph)
 - Twitter: [@mindoJoseph](https://twitter.com/mindoJoseph)
 - Linkedin: [Joseph Mindo](https://www.linkedin.com/in/joseph-mindo-367284132/)
+
+***Kossy Steve***
+- Github: [@KossySteve](https://github.com/KossySteve)
+- Twitter: [@EzeSteve3](https://twitter.com/EzeSteve3/)
+- Linkedin: [linkedin](https://www.linkedin.com/in/steve-ez-b090ba198/)
+- Mail: kossyeze@gmail.com
 
 
 ## 🤝 Contributing
